@@ -23,27 +23,43 @@ const UpdateData = ({ fetchData }) => {
         setEmail(itemData.attributes.Email || '');
         setPhoneNumber(itemData.attributes.PhoneNumber || '');
 
-    //     const thumbnailId = itemData.attributes?.Thumbnail?.data[0]?.id;
-    // if (thumbnailId) {
-      // const thumbnailResponse = await axios.get(`http://localhost:1337/api/upload/files/${thumbnailId}`);
-      // const thumbnailURL = (`http://localhost:1337${thumbnailResponse.data.url}`);
-      // const thumbnailResponse = await axios.get(thumbnailId);
+    // //     const thumbnailId = itemData.attributes?.Thumbnail?.data[0]?.id;
+    // // if (thumbnailId) {
+    //   // const thumbnailResponse = await axios.get(`http://localhost:1337/api/upload/files/${thumbnailId}`);
+    //   // const thumbnailURL = (`http://localhost:1337${thumbnailResponse.data.url}`);
+    //   // const thumbnailResponse = await axios.get(thumbnailId);
 
-      const thumbnailURL = itemData.attributes.Thumbnail?.data[0]?.attributes?.url;
-      setThumbnail(thumbnailURL);
-    // }
+    //   const thumbnailURL = itemData.attributes.Thumbnail?.data[0]?.attributes?.url;
+    //   setThumbnail(thumbnailURL);
+    // // }
 
-    // Fetch UploadFile URL
-    // const uploadFileId = itemData.attributes?.UploadFile?.data[0]?.id;
-    // if (uploadFileId) {
-    //   // const uploadFileResponse = await axios.get(`http://localhost:1337/api/upload/files/${uploadFileId}`);
-    //   // const uploadFileURL = (`http://localhost:1337${uploadFileResponse.data.url}`);
-    //   const uploadFileResponse = await axios.get(uploadFileId);
-    //   const uploadFileURL = (uploadFileResponse.data.url);
-    //   setUploadFile(uploadFileURL);
-    // }
-       const uploadFileURL = itemData.attributes.UploadFile?.data[0]?.attributes?.url
-       setUploadFile(uploadFileURL)
+    // // Fetch UploadFile URL
+    // // const uploadFileId = itemData.attributes?.UploadFile?.data[0]?.id;
+    // // if (uploadFileId) {
+    // //   // const uploadFileResponse = await axios.get(`http://localhost:1337/api/upload/files/${uploadFileId}`);
+    // //   // const uploadFileURL = (`http://localhost:1337${uploadFileResponse.data.url}`);
+    // //   const uploadFileResponse = await axios.get(uploadFileId);
+    // //   const uploadFileURL = (uploadFileResponse.data.url);
+    // //   setUploadFile(uploadFileURL);
+    // // }
+    //    const uploadFileURL = itemData.attributes.UploadFile?.data[0]?.attributes?.url
+    //    setUploadFile(uploadFileURL)
+
+    const thumbnailId = itemData.attributes?.Thumbnail?.data[0]?.id;
+    if (thumbnailId) {
+      const thumbnailResponse = await axios.get(`http://localhost:1337/api/upload/files/${thumbnailId}`, { responseType: 'blob' });
+      const thumbnailFile = new File([thumbnailResponse.data], 'thumbnail.png', { type: 'image/png' });
+      setThumbnail(thumbnailFile);
+    }
+
+    // Fetch UploadFile
+    const uploadFileId = itemData.attributes?.UploadFile?.data[0]?.id;
+    if (uploadFileId) {
+      const uploadFileResponse = await axios.get(`http://localhost:1337/api/upload/files/${uploadFileId}`, { responseType: 'blob' });
+      const uploadFile = new File([uploadFileResponse.data], 'uploadFile.pdf', { type: 'application/pdf' }); // Adjust the file type as per your requirement
+      setUploadFile(uploadFile);
+    }
+
         setLoading(false); // Set loading to false after data is fetched
       } catch (error) {
         console.error('Error fetching item data for update:', error);
@@ -54,7 +70,6 @@ const UpdateData = ({ fetchData }) => {
   }, [id]);
 
   console.log("prev data:" , {Name, Email, PhoneNumber, Thumbnail, UploadFile})
-
   const handleChange = (e) => {
     if (e.target.name === 'thumbnail') {
       if (e.target.files.length > 0) {
@@ -165,7 +180,7 @@ const UpdateData = ({ fetchData }) => {
                 value={Name}
                 onChange={handleChange}
                 placeholder="Name"
-                required // Add the required attribute here
+                
               />
               
             </div>
@@ -181,7 +196,7 @@ const UpdateData = ({ fetchData }) => {
                 value={PhoneNumber}
                 onChange={handleChange}
                 placeholder="Phone Number"
-                required // Add the required attribute here
+               
               />
             </div>
             <div className="mb-4">
@@ -196,7 +211,7 @@ const UpdateData = ({ fetchData }) => {
                 value={Email}
                 onChange={handleChange}
                 placeholder="Email"
-                required // Add the required attribute here
+                
               />
             </div>
             <div className="mb-4">
@@ -210,7 +225,7 @@ const UpdateData = ({ fetchData }) => {
                 type="file"
                 name="thumbnail"
                 onChange={handleChange}
-                required // Add the required attribute here
+                required
               />
              {Thumbnail && (Thumbnail instanceof File) && (
   <img src={URL.createObjectURL(Thumbnail)} alt="Thumbnail" className="mt-2" style={{ maxWidth: '100px' }} />
@@ -226,9 +241,9 @@ const UpdateData = ({ fetchData }) => {
                 id="uploadFile"
                 type="file"
                 name="uploadFile"
-                
+                required
                 onChange={handleChange}
-                required // Add the required attribute here
+               
               />
              {UploadFile && (UploadFile instanceof File) && (
   <img src={URL.createObjectURL(UploadFile)} alt="UploadFile" className="mt-2" style={{ maxWidth: '100px' }} />
