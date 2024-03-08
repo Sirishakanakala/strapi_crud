@@ -62,23 +62,23 @@ export default function Create() {
               <form onSubmit={handleSubmit} className="mt-8 space-y-6">
                 <div className="mb-4">
                   <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Name</label>
-                  <input type="text" className="form-input w-full" id="name" placeholder="Enter Name" onChange={(e) => setName(e.target.value)} />
+                  <input type="text" className="form-input w-full" id="name" placeholder="Enter Name" onChange={(e) => setName(e.target.value)} required/>
                 </div>
                 <div className="mb-4">
                   <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email</label>
-                  <input type="email" className="form-input w-full" id="email" placeholder="Enter Email" onChange={(e) => setEmail(e.target.value)} />
+                  <input type="email" className="form-input w-full" id="email" placeholder="Enter Email" onChange={(e) => setEmail(e.target.value)}  required/>
                 </div>
                 <div className="mb-4">
                   <label htmlFor="phoneNumber" className="block text-gray-700 text-sm font-bold mb-2">Phone Number</label>
-                  <input type="tel" className="form-input w-full" id="phoneNumber" placeholder="Enter Phone Number" onChange={(e) => setPhoneNumber(e.target.value)} />
+                  <input type="tel" className="form-input w-full" id="phoneNumber" placeholder="Enter Phone Number" onChange={(e) => setPhoneNumber(e.target.value)} required/>
                 </div>
                 <div className="mb-4">
                   <label htmlFor="thumbnail" className="block text-gray-700 text-sm font-bold mb-2">Thumbnail</label>
-                  <input type="file" className="form-input w-full" id="thumbnail" onChange={(e) => setThumbnail(e.target.files[0])} />
+                  <input type="file" className="form-input w-full" id="thumbnail" onChange={(e) => setThumbnail(e.target.files[0])} required />
                 </div>
                 <div className="mb-4">
                   <label htmlFor="uploadFile" className="block text-gray-700 text-sm font-bold mb-2">Upload File</label>
-                  <input type="file" className="form-input w-full" id="uploadFile" onChange={(e) => setUploadFile(e.target.files[0])} />
+                  <input type="file" className="form-input w-full" id="uploadFile" onChange={(e) => setUploadFile(e.target.files[0])} required/>
                 </div>
                 <div className="flex justify-center">
                   <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Submit</button>
