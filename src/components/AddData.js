@@ -1,86 +1,93 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const AddData = () => {
-  const [formData, setFormData] = useState({ name: '', number: '', email: '' });
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+export default function Create() {
+  const [Name, setName] = useState('');
+  const [Email, setEmail] = useState('');
+  const [PhoneNumber, setPhoneNumber] = useState('');
+  const [Thumbnail, setThumbnail] = useState(null);
+  const [UploadFile, setUploadFile] = useState(null);
+  
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      await axios.post('http://localhost:1337/crud', formData);
+      // For Thumbnail (Image)
+      let thumbId;
+      if (Thumbnail) {
+        const thumbnailFormData = new FormData();
+        thumbnailFormData.append('files', Thumbnail);
+        const thumbnailResponse = await axios.post('http://localhost:1337/api/upload', thumbnailFormData);
+        thumbId = thumbnailResponse.data[0].id;
+      }
+
+      // For UploadFile (Other File Types)
+      let fileId;
+      if (UploadFile) {
+        const fileFormData = new FormData();
+        fileFormData.append('files', UploadFile);
+        const fileResponse = await axios.post('http://localhost:1337/api/upload', fileFormData);
+        fileId = fileResponse.data[0].id;
+      }
+
+      await axios.post('http://localhost:1337/api/cruds', {
+        data: {
+          Name,
+          Email,
+          PhoneNumber,
+          Thumbnail: thumbId,
+          UploadFile: fileId
+        }
+      });
+
+      navigate('/');
+      window.location.reload();
       console.log('Data added successfully');
-      // Clear form data after successful submission
-      setFormData({ name: '', number: '', email: '' });
+      
     } catch (error) {
       console.error('Error adding data:', error);
     }
   };
-
+  
   return (
     <>
-    <div className="flex justify-center items-center py-8">
-      <h1 className="text-xl font-bold">Add Data</h1>
-    </div>
-    <form onSubmit={handleSubmit} className="max-w-lg mx-auto mt-8">
-      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
-            Name
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="name"
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Name"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="number">
-            Number
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="number"
-            type="text"
-            name="number"
-            value={formData.number}
-            onChange={handleChange}
-            placeholder="Number"
-          />
-        </div>
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-            Email
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="email"
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Email"
-          />
-        </div>
-        <div className="flex items-center justify-between">
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
-          >
-            Add Data
-          </button>
+      <div className="container mx-auto mt-8">
+        <h2 className="text-center text-2xl font-semibold text-white text-center mb-4">Add New Data</h2>
+        <div className="max-w-md mx-auto bg-white rounded-lg overflow-hidden md:max-w-xl">
+          <div className="md:flex">
+            <div className="w-full py-8 px-6 md:px-8">
+              <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+                <div className="mb-4">
+                  <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Name</label>
+                  <input type="text" className="form-input w-full" id="name" placeholder="Enter Name" onChange={(e) => setName(e.target.value)} />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                  <input type="email" className="form-input w-full" id="email" placeholder="Enter Email" onChange={(e) => setEmail(e.target.value)} />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="phoneNumber" className="block text-gray-700 text-sm font-bold mb-2">Phone Number</label>
+                  <input type="tel" className="form-input w-full" id="phoneNumber" placeholder="Enter Phone Number" onChange={(e) => setPhoneNumber(e.target.value)} />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="thumbnail" className="block text-gray-700 text-sm font-bold mb-2">Thumbnail</label>
+                  <input type="file" className="form-input w-full" id="thumbnail" onChange={(e) => setThumbnail(e.target.files[0])} />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="uploadFile" className="block text-gray-700 text-sm font-bold mb-2">Upload File</label>
+                  <input type="file" className="form-input w-full" id="uploadFile" onChange={(e) => setUploadFile(e.target.files[0])} />
+                </div>
+                <div className="flex justify-center">
+                  <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Submit</button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
-    </form>
     </>
   );
-};
-
-export default AddData;
+}

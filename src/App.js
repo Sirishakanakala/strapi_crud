@@ -1,35 +1,80 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes,  Link} from 'react-router-dom';
 import Home from './components/Home';
 import DisplayData from './components/DisplayData';
 import AddData from './components/AddData';
+import UpdateData from './components/UpdateData'; // Import UpdateData component
 
 function App() {
-  const handleDelete = async (id) => {
+  const [data, setData] = useState([]);
+  const fetchData = async () => {
     try {
-      await axios.delete(`http://localhost:1337/crud/${id}`);
-      console.log('Data deleted successfully');
-      // Refresh data after deletion
-      // You can also implement optimistic UI update by removing the deleted item from the state directly.
+      const response = await axios.get('http://localhost:1337/api/cruds?populate=*');
+      setData(response.data.data);
     } catch (error) {
-      console.error('Error deleting data:', error);
+      console.error('Error fetching data:', error);
     }
   };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:1337/api/cruds/${id}`);
+      console.log('Data deleted successfully');
+      fetchData();
+    } catch (error) {
+      console.error('Error deleting data:', error);
+  }
+  };
+ 
+  const handleUpdate = async (id, newData) => {
+    try {
+      await axios.put(`http://localhost:1337/api/cruds/${id}`, newData);
+      console.log('Data updated successfully');
+      fetchData();
+    } catch (error) {
+      console.error('Error updating data:', error);
+    }
+  };
+  
+
   return (
-    <>
-      <div>
-        <Home />
+    <Router>
+      <div style={{ minHeight: '100vh', backgroundColor: '#1d112b' }}> 
         <div>
-        <div className="flex justify-center items-center py-8">
-         <h1 className="text-2xl font-bold">Data</h1>
-        </div>
-          <DisplayData handleDelete={handleDelete} />
-          <AddData />
+          <Home />
+          <div>
+            <Link to={`/addData`}>
+            <div className='px-10'>
+               <button className="bg-white hover:bg-purple-100 text-black font-bold py-2 px-10 rounded mr-2">
+                     AddData
+               </button>
+            </div>
+          </Link>
+            <Routes>
+              <Route
+                path="/addData"
+                element={<AddData fetchData={fetchData} />}
+              />
+              <Route
+                path="/updateData/:id"
+                element={<UpdateData fetchData={fetchData} />}
+              />
+              <Route
+                path="/"
+                element={<DisplayData data={data} handleDelete={handleDelete} handleUpdate={handleUpdate} />}
+              />
+            </Routes>
+          </div>
         </div>
       </div>
-    </>
+    </Router>
   );
 }
 

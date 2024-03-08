@@ -1,33 +1,3 @@
-/* App.css */
-.table-container {
-  width: 100%;
-}
-
-.table {
-  width: 100%;
-  border: black;
-}
-
-.table th,
-.table td {
-  padding: 8px;
-  border: 1px solid #000000;
-}
-
-.table th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-  text-align: left;
-}
-
-.table tr:hover {
-  background-color: #f2f2f2;
-}
-
-.button-container {
-  display: flex;
-}
-
-.button-container button {
-  margin-right: 5px;
+.{
+  color: #361c54
 }
