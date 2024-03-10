@@ -10,7 +10,7 @@ function App() {
   const [data, setData] = useState([]);
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/cruds?populate=*');
+      const response = await axios.get('https://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/cruds?populate=*');
       setData(response.data.data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -25,7 +25,7 @@ function App() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/cruds/${id}`);
+      await axios.delete(`https://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/cruds/${id}`);
       console.log('Data deleted successfully');
       fetchData();
     } catch (error) {
@@ -35,7 +35,7 @@ function App() {
  
   const handleUpdate = async (id, newData) => {
     try {
-      await axios.put(`http://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/cruds/${id}`, newData);
+      await axios.put(`https://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/cruds/${id}`, newData);
       console.log('Data updated successfully');
       fetchData();
     } catch (error) {
