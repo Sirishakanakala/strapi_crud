@@ -20,7 +20,7 @@ export default function Create() {
       if (Thumbnail) {
         const thumbnailFormData = new FormData();
         thumbnailFormData.append('files', Thumbnail);
-        const thumbnailResponse = await axios.post('http://localhost:1337/api/upload', thumbnailFormData);
+        const thumbnailResponse = await axios.post('http://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/upload', thumbnailFormData);
         thumbId = thumbnailResponse.data[0].id;
       }
 
@@ -29,11 +29,11 @@ export default function Create() {
       if (UploadFile) {
         const fileFormData = new FormData();
         fileFormData.append('files', UploadFile);
-        const fileResponse = await axios.post('http://localhost:1337/api/upload', fileFormData);
+        const fileResponse = await axios.post('http://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/upload', fileFormData);
         fileId = fileResponse.data[0].id;
       }
 
-      await axios.post('http://localhost:1337/api/cruds', {
+      await axios.post('http://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/cruds', {
         data: {
           Name,
           Email,

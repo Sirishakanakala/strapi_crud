@@ -16,7 +16,7 @@ const UpdateData = ({ fetchData }) => {
   useEffect(() => {
     const fetchItem = async () => {
       try {
-        const response = await axios.get(`http://localhost:1337/api/cruds/${id}?populate=*`);
+        const response = await axios.get(`http://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/cruds/${id}?populate=*`);
         const itemData = response.data.data;
 
         setName(itemData.attributes.Name || '');
@@ -25,7 +25,7 @@ const UpdateData = ({ fetchData }) => {
 
     // //     const thumbnailId = itemData.attributes?.Thumbnail?.data[0]?.id;
     // // if (thumbnailId) {
-    //   // const thumbnailResponse = await axios.get(`http://localhost:1337/api/upload/files/${thumbnailId}`);
+    //   // const thumbnailResponse = await axios.get(`http://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/upload/files/${thumbnailId}`);
     //   // const thumbnailURL = (`http://localhost:1337${thumbnailResponse.data.url}`);
     //   // const thumbnailResponse = await axios.get(thumbnailId);
 
@@ -36,7 +36,7 @@ const UpdateData = ({ fetchData }) => {
     // // Fetch UploadFile URL
     // // const uploadFileId = itemData.attributes?.UploadFile?.data[0]?.id;
     // // if (uploadFileId) {
-    // //   // const uploadFileResponse = await axios.get(`http://localhost:1337/api/upload/files/${uploadFileId}`);
+    // //   // const uploadFileResponse = await axios.get(`http://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/upload/files/${uploadFileId}`);
     // //   // const uploadFileURL = (`http://localhost:1337${uploadFileResponse.data.url}`);
     // //   const uploadFileResponse = await axios.get(uploadFileId);
     // //   const uploadFileURL = (uploadFileResponse.data.url);
@@ -47,7 +47,7 @@ const UpdateData = ({ fetchData }) => {
 
     const thumbnailId = itemData.attributes?.Thumbnail?.data[0]?.id;
     if (thumbnailId) {
-      const thumbnailResponse = await axios.get(`http://localhost:1337/api/upload/files/${thumbnailId}`, { responseType: 'blob' });
+      const thumbnailResponse = await axios.get(`http://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/upload/files/${thumbnailId}`, { responseType: 'blob' });
       const thumbnailFile = new File([thumbnailResponse.data], 'thumbnail.png', { type: 'image/png' });
       setThumbnail(thumbnailFile);
     }
@@ -55,7 +55,7 @@ const UpdateData = ({ fetchData }) => {
     // Fetch UploadFile
     const uploadFileId = itemData.attributes?.UploadFile?.data[0]?.id;
     if (uploadFileId) {
-      const uploadFileResponse = await axios.get(`http://localhost:1337/api/upload/files/${uploadFileId}`, { responseType: 'blob' });
+      const uploadFileResponse = await axios.get(`http://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/upload/files/${uploadFileId}`, { responseType: 'blob' });
       const uploadFile = new File([uploadFileResponse.data], 'uploadFile.pdf', { type: 'application/pdf' }); // Adjust the file type as per your requirement
       setUploadFile(uploadFile);
     }
@@ -106,7 +106,7 @@ const UpdateData = ({ fetchData }) => {
       
       //   const thumbnailFormData = new FormData();
       //   thumbnailFormData.append('files', Thumbnail);
-      //   const thumbnailResponse = await axios.post('http://localhost:1337/api/upload', thumbnailFormData);
+      //   const thumbnailResponse = await axios.post('http://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/upload', thumbnailFormData);
       //   thumbId = thumbnailResponse.data[0].id;
 
       // // For UploadFile (Other File Types)
@@ -114,7 +114,7 @@ const UpdateData = ({ fetchData }) => {
      
       //   const fileFormData = new FormData();
       //   fileFormData.append('files', UploadFile);
-      //   const fileResponse = await axios.post('http://localhost:1337/api/upload', fileFormData);
+      //   const fileResponse = await axios.post('http://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/upload', fileFormData);
       //   fileId = fileResponse.data[0].id;
      
       //   fileId = UploadFile; // Use existing UploadFile ID if not a File
@@ -123,7 +123,7 @@ const UpdateData = ({ fetchData }) => {
     if (Thumbnail) {
       const thumbnailFormData = new FormData();
       thumbnailFormData.append('files', Thumbnail);
-      const thumbnailResponse = await axios.post('http://localhost:1337/api/upload', thumbnailFormData);
+      const thumbnailResponse = await axios.post('http://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/upload', thumbnailFormData);
       thumbId = thumbnailResponse.data[0].id;
     }
 
@@ -132,7 +132,7 @@ const UpdateData = ({ fetchData }) => {
     if (UploadFile) {
       const fileFormData = new FormData();
       fileFormData.append('files', UploadFile);
-      const fileResponse = await axios.post('http://localhost:1337/api/upload', fileFormData);
+      const fileResponse = await axios.post('http://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/upload', fileFormData);
       fileId = fileResponse.data[0].id;
     }
     const dataToSend = {
@@ -143,7 +143,7 @@ const UpdateData = ({ fetchData }) => {
       UploadFile: fileId || UploadFile || 'null', // Pass the existing UploadFile if no new one is provided
     };
 
-    await axios.put(`http://localhost:1337/api/cruds/${id}`, {
+    await axios.put(`http://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/cruds/${id}`, {
       data: dataToSend,
       headers: {
         'Content-Type': 'application/json',
