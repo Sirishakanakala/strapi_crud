@@ -135,6 +135,8 @@ const UpdateData = ({ fetchData }) => {
       const fileResponse = await axios.post('https://fruitful-approval-a23bb4e501.strapiapp.com/api/upload', fileFormData);
       fileId = fileResponse.data[0].id;
     }
+
+    console.log("prev" , Thumbnail);
     const dataToSend = {
       Name: Name || '',
       Email: Email || '',
