@@ -33,15 +33,15 @@ function App() {
   }
   };
  
-  const handleUpdate = async (id, newData) => {
-    try {
-      await axios.put(`https://Fruitfull-approval-a23bb4e501.strapiapp.com/api/cruds/${id}`, newData);
-      console.log('Data updated successfully');
-      fetchData();
-    } catch (error) {
-      console.error('Error updating data:', error);
-    }
-  };
+  // const handleUpdate = async (id, newData) => {
+  //   try {
+  //     await axios.put(`https://Fruitfull-approval-a23bb4e501.strapiapp.com/api/cruds/${id}`, newData);
+  //     console.log('Data updated successfully');
+  //     fetchData();
+  //   } catch (error) {
+  //     console.error('Error updating data:', error);
+  //   }
+  // };
   
 
   return (
