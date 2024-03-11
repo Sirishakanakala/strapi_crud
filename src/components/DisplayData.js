@@ -10,7 +10,7 @@ const DisplayData = ({ data, handleDelete }) => {
           {/* Display Thumbnail if it exists */}
           {item.attributes.Thumbnail && item.attributes.Thumbnail.data && item.attributes.Thumbnail.data[0] && (
             <div className="mb-2">
-              <img src={`https://fruitful-approval-a23bb4e501.strapiapp.com${item.attributes.Thumbnail.data[0].attributes.url}`} alt="Thumbnail" className="w-full h-40 object-cover mb-2 rounded-lg" />
+              <img src={item.attributes.Thumbnail.data[0].attributes.url} alt="Thumbnail" className="w-full h-40 object-cover mb-2 rounded-lg" />
             </div>
           )}
           {/* Display information */}
@@ -21,7 +21,7 @@ const DisplayData = ({ data, handleDelete }) => {
           {/* Display PDF File if it exists */}
           {item.attributes.UploadFile && item.attributes.UploadFile.data && item.attributes.UploadFile.data[0] && (
             <div className="mt-2">
-              <a href={`https://fruitful-approval-a23bb4e501.strapiapp.com/${item.attributes.UploadFile.data[0].attributes.url}`}
+              <a href={item.attributes.UploadFile.data[0].attributes.url}
                 target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline" style={{ color: '#361c54' }}>View Details For More</a>
             </div>
           )}
