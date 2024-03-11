@@ -16,7 +16,7 @@ const UpdateData = ({ fetchData }) => {
   useEffect(() => {
     const fetchItem = async () => {
       try {
-        const response = await axios.get(`http://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/cruds/${id}?populate=*`);
+        const response = await axios.get(`https://fruitful-approval-a23bb4e501.strapiapp.com/api/cruds/${id}?populate=*`);
         const itemData = response.data.data;
 
         setName(itemData.attributes.Name || '');
@@ -47,7 +47,7 @@ const UpdateData = ({ fetchData }) => {
 
     const thumbnailId = itemData.attributes?.Thumbnail?.data[0]?.id;
     if (thumbnailId) {
-      const thumbnailResponse = await axios.get(`http://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/upload/files/${thumbnailId}`, { responseType: 'blob' });
+      const thumbnailResponse = await axios.get(`https://fruitful-approval-a23bb4e501.strapiapp.com/api/upload/files/${thumbnailId}`, { responseType: 'blob' });
       const thumbnailFile = new File([thumbnailResponse.data], 'thumbnail.png', { type: 'image/png' });
       setThumbnail(thumbnailFile);
     }
@@ -55,7 +55,7 @@ const UpdateData = ({ fetchData }) => {
     // Fetch UploadFile
     const uploadFileId = itemData.attributes?.UploadFile?.data[0]?.id;
     if (uploadFileId) {
-      const uploadFileResponse = await axios.get(`http://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/upload/files/${uploadFileId}`, { responseType: 'blob' });
+      const uploadFileResponse = await axios.get(`https://fruitful-approval-a23bb4e501.strapiapp.com/api/upload/files/${uploadFileId}`, { responseType: 'blob' });
       const uploadFile = new File([uploadFileResponse.data], 'uploadFile.pdf', { type: 'application/pdf' }); // Adjust the file type as per your requirement
       setUploadFile(uploadFile);
     }
@@ -123,7 +123,7 @@ const UpdateData = ({ fetchData }) => {
     if (Thumbnail) {
       const thumbnailFormData = new FormData();
       thumbnailFormData.append('files', Thumbnail);
-      const thumbnailResponse = await axios.post('http://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/upload', thumbnailFormData);
+      const thumbnailResponse = await axios.post('https://fruitful-approval-a23bb4e501.strapiapp.com/api/upload', thumbnailFormData);
       thumbId = thumbnailResponse.data[0].id;
     }
 
@@ -132,7 +132,7 @@ const UpdateData = ({ fetchData }) => {
     if (UploadFile) {
       const fileFormData = new FormData();
       fileFormData.append('files', UploadFile);
-      const fileResponse = await axios.post('http://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/upload', fileFormData);
+      const fileResponse = await axios.post('https://fruitful-approval-a23bb4e501.strapiapp.com/api/upload', fileFormData);
       fileId = fileResponse.data[0].id;
     }
     const dataToSend = {
@@ -143,7 +143,7 @@ const UpdateData = ({ fetchData }) => {
       UploadFile: fileId || UploadFile || 'null', // Pass the existing UploadFile if no new one is provided
     };
 
-    await axios.put(`http://Fruitfull-approval-a23bb4e501.atrqpiqpp.com/api/cruds/${id}`, {
+    await axios.put(`https://fruitful-approval-a23bb4e501.strapiapp.com/api/cruds/${id}`, {
       data: dataToSend,
       headers: {
         'Content-Type': 'application/json',
