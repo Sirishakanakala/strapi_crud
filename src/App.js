@@ -25,7 +25,7 @@ function App() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://Fruitfull-approval-a23bb4e501.strapiapp.com/api/cruds/${id}`);
+      await axios.delete(`https://Fruitfull-approval-a23bb4e501.strapiapp.com/api/cruds/${id}?populate=*`);
       console.log('Data deleted successfully');
       fetchData();
     } catch (error) {
@@ -68,7 +68,7 @@ function App() {
               />
               <Route
                 path="/"
-                element={<DisplayData data={data} handleDelete={handleDelete} handleUpdate={handleUpdate} />}
+                element={<DisplayData data={data} handleDelete={handleDelete} />}
               />
             </Routes>
           </div>
