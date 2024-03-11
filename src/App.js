@@ -25,7 +25,7 @@ function App() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://Fruitfull-approval-a23bb4e501.strapiapp.com/api/cruds/${id}?populate=*`);
+      await axios.delete(`https://fruitful-approval-a23bb4e501.strapiapp.com/api/cruds/${id}?populate=*`);
       console.log('Data deleted successfully');
       fetchData();
     } catch (error) {
